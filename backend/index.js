@@ -20,9 +20,9 @@ app.get("/api/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("user connected");
+  socket.broadcast.emit("chat", "user joined");
   socket.on("disconnect", function () {
-    console.log("user disconnected");
+    socket.broadcast.emit("chat", "user left");
   });
   socket.on("chat", (value, callback) => {
     console.log(value);

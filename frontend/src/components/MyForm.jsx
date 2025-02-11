@@ -1,24 +1,38 @@
 import React, { useState } from 'react';
 import { socket } from '../socket';
 
-export function MyForm() {
+export const MyForm = ({setChatEvents}) => {
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  function onSubmit(event) {
+  const onSubmit = (event) => {
+    if(value === '') return;
+
     event.preventDefault();
     setIsLoading(true);
 
-    socket.timeout(5000).emit('chat', value, () => {
+    socket.timeout(5000).emit('chat', value, (err) => {
+      if(err) {
+        // TODO: warn user
+        alert(err);
+      }
+      else {
+        setChatEvents(messages => [...messages, value]);
+        setValue('');
+      }
+
       setIsLoading(false);
     });
   }
 
-  return (
-    <form onSubmit={ onSubmit }>
-      <input onChange={ e => setValue(e.target.value) } />
+  const onInputChange = (value) => {
+    setValue(value)
+  }
 
-      <button type="submit" disabled={ isLoading }>Submit</button>
-    </form>
+  return (
+    <div>
+      <input className="chat-input" value={value} onChange={ e => onInputChange(e.target.value) } />
+      <button onClick={onSubmit} disabled={ isLoading }>Submit</button>
+    </div>
   );
 }

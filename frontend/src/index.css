@@ -66,3 +66,27 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.chatbox {
+  width: 85vw;
+  height: 75vh;
+  background-color: #121212;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
+
+.chatbox ul {
+  list-style-type: none;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.chatbox ul li {
+  padding-bottom: 8px;
+}
+
+.chat-input {
+  height: 32px;
+  width: 65vw;
+  margin-right: 10px;
+}

@@ -6,7 +6,7 @@ import { Events } from "./components/Events";
 import { MyForm } from './components/MyForm';
 import './App.css'
 
-export default function App() {
+const App = () => {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [chatEvents, setChatEvents] = useState([]);
 
@@ -20,8 +20,6 @@ export default function App() {
     }
 
     function onChatEvent(value) {
-      console.log(value);
-      
       setChatEvents(previous => [...previous, value]);
     }
 
@@ -38,10 +36,12 @@ export default function App() {
 
   return (
     <div className="App">
+      <ConnectionManager />
       <ConnectionState isConnected={ isConnected } />
       <Events events={ chatEvents } />
-      <ConnectionManager />
-      <MyForm />
+      <MyForm setChatEvents={setChatEvents}/>
     </div>
   );
 }
+
+export default App;
