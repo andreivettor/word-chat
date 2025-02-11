@@ -4,7 +4,10 @@ const server = require("http").createServer(app);
 const port = process.env.PORT || 8080;
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://word-chat-client.onrender.com"
+        : "*",
   },
 });
 

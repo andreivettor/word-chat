@@ -4,6 +4,6 @@ import { io } from "socket.io-client";
 const URL =
   process.env.NODE_ENV === "production"
     ? "https://word-chat-server.onrender.com"
-    : "https://localhost:8080/";
+    : "http://localhost:8080/";
 
 export const socket = io(URL);
