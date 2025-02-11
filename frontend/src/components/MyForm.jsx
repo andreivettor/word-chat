@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { socket } from '../socket';
 
 export const MyForm = ({setChatEvents}) => {
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (event) => {
+  useEffect(() => {
+    const listener = event => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        onSubmit();
+      }
+    };
+    
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [value]);
+
+  const onSubmit = () => {
     if(value === '') return;
 
-    event.preventDefault();
     setIsLoading(true);
 
     socket.timeout(5000).emit('chat', value, (err) => {
