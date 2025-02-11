@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
 const server = require("https").createServer(app);
-const io = require("socket.io")(server);
 const port = process.env.PORT || 8080;
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -16,6 +20,13 @@ io.on("connection", (socket) => {
   console.log("user connected");
   socket.on("disconnect", function () {
     console.log("user disconnected");
+  });
+  socket.on("chat", (value, callback) => {
+    console.log(value);
+    socket.broadcast.emit("chat", value);
+    callback({
+      status: "ok",
+    });
   });
 });
 

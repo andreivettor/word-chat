@@ -8,7 +8,7 @@ import './App.css'
 
 export default function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [fooEvents, setFooEvents] = useState([]);
+  const [chatEvents, setChatEvents] = useState([]);
 
   useEffect(() => {
     function onConnect() {
@@ -19,25 +19,27 @@ export default function App() {
       setIsConnected(false);
     }
 
-    function onFooEvent(value) {
-      setFooEvents(previous => [...previous, value]);
+    function onChatEvent(value) {
+      console.log(value);
+      
+      setChatEvents(previous => [...previous, value]);
     }
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('foo', onFooEvent);
+    socket.on('chat', onChatEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('foo', onFooEvent);
+      socket.off('chat', onChatEvent);
     };
   }, []);
 
   return (
     <div className="App">
       <ConnectionState isConnected={ isConnected } />
-      <Events events={ fooEvents } />
+      <Events events={ chatEvents } />
       <ConnectionManager />
       <MyForm />
     </div>
