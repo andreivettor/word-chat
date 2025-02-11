@@ -11,9 +11,9 @@ export function ConnectionManager() {
   }
 
   return (
-    <>
+    <div>
       <button onClick={ connect }>Connect</button>
       <button onClick={ disconnect }>Disconnect</button>
-    </>
+    </div>
   );
 }

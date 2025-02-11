@@ -68,8 +68,8 @@ button:focus-visible {
 }
 
 .chatbox {
-  width: 85vw;
-  height: 75vh;
+  flex: 1 0 1;
+  height: 65vh;
   background-color: #121212;
   overflow-y: scroll;
   margin-bottom: 20px;
@@ -79,6 +79,7 @@ button:focus-visible {
   list-style-type: none;
   text-align: left;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .chatbox ul li {
@@ -87,6 +88,6 @@ button:focus-visible {
 
 .chat-input {
   height: 32px;
-  width: 65vw;
+  width: 300px;
   margin-right: 10px;
 }
